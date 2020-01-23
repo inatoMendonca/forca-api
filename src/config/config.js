@@ -15,7 +15,7 @@ module.exports = {//exportando o JSON para a aplicação
             port: process.env.PORT,
             name: 'heroku_3c05be6f918c8ef',
             dialect: 'mysql',
-            user: '	be7ede38e1572a',
+            user: 'be7ede38e1572a',
             password: '8ec9cc97'
         }
     }
