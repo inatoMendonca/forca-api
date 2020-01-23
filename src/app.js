@@ -6,11 +6,11 @@ const status = require('http-status');
 
 const app = express();
 
-const hostname = "127.0.0.1"; //Localhost
 
 app.use(express.json());
 
 app.use('/api', rotas);// endereço raiz de todas as rotas da aplicação (prefixo)
+app.use(express.static(__dirname + '/src'));
 
 // middleware que retorna um 404 caso de erro na requisição
 app.use((request, response, next) => {
@@ -21,6 +21,14 @@ app.use((request, response, next) => {
 app.use((error, request, response, next) => {
     response.status(status.INTERNAL_SERVER_ERROR).json({error});
 });
+
+app.get('/', function(request, response) {
+    response.render('src/app');
+})
+
+app.listen(process.env.PORT || 3000, function() {
+    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+  });
 
 // Todas as vezes que subir a API, esse método é executado, recriando as tables todas as vezes que iniciado
 sequelize.sync({force: false}).then(() => {
